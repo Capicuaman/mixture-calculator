@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="background-blobs">
         <div class="blob blob-1"></div>
@@ -17,8 +19,10 @@
     </div>
     <main class="calculator-container">
         <header>
-            <h1>Mixture Calculator</h1>
-            <p>Maintain perfect proportions. Enter an amount for any ingredient to calculate the corresponding amounts of the others.</p>
+            <div id="print-timestamp" class="print-only"></div>
+            <h1>bilan Mixture Calculator</h1>
+            <p>Maintain perfect proportions. Enter an amount for any ingredient to calculate the corresponding amounts
+                of the others.</p>
         </header>
 
         <div class="inputs-grid">
@@ -73,10 +77,39 @@
             </div>
         </div>
 
+        <div class="inventory-section">
+            <div class="section-title">Inventory Stock</div>
+            <div class="inventory-grid">
+                <div class="inventory-item">
+                    <label for="inv-magnesium">Mg Stock</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="inv-magnesium" placeholder="0" min="0" step="any">
+                        <span class="unit">g</span>
+                    </div>
+                </div>
+                <div class="inventory-item">
+                    <label for="inv-potassium">K Stock</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="inv-potassium" placeholder="0" min="0" step="any">
+                        <span class="unit">g</span>
+                    </div>
+                </div>
+                <div class="inventory-item">
+                    <label for="inv-sodium">Na Stock</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="inv-sodium" placeholder="0" min="0" step="any">
+                        <span class="unit">g</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="actions">
-            <button id="reset-btn" class="btn-primary">Reset to Original</button>
+            <button id="reset-btn" class="btn-secondary">Reset Calculator</button>
+            <button id="print-btn" class="btn-primary">Print & Update Inventory</button>
         </div>
     </main>
     <script src="script.js"></script>
 </body>
+
 </html>
