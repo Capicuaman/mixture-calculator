@@ -10,6 +10,7 @@ const inputK = document.getElementById('potassium');
 const inputNa = document.getElementById('sodium');
 const inputTotal = document.getElementById('total');
 const resetBtn = document.getElementById('reset-btn');
+const printBtn = document.getElementById('print-btn');
 
 function formatValue(val) {
     if (isNaN(val) || !isFinite(val)) return '';
@@ -59,6 +60,15 @@ function handleInput(e) {
     calculateFrom(input.id, input.value);
 }
 
+function handlePrint() {
+    // Set current date and time for the print
+    const timestamp = document.getElementById('print-timestamp');
+    const now = new Date();
+    timestamp.textContent = `Printed on: ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`;
+    
+    window.print();
+}
+
 function resetValues() {
     inputMg.value = BASE_VALUES.magnesium;
     inputK.value = BASE_VALUES.potassium;
@@ -80,6 +90,8 @@ resetBtn.addEventListener('click', () => {
         resetBtn.style.transform = '';
     }, 150);
 });
+
+printBtn.addEventListener('click', handlePrint);
 
 // Initialize inputs with the base starting values
 resetValues();
