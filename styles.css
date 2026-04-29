@@ -178,6 +178,14 @@ label {
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.input-wrapper::before {
+    content: "g";
+    visibility: hidden;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 0.75rem; /* Matches unit margin */
+}
+
 .input-wrapper:focus-within {
     border-color: var(--accent-1);
     background: rgba(15, 23, 42, 0.8);
@@ -197,10 +205,8 @@ input[type="text"] {
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     outline: none;
-    text-align: right;
-    flex: 1;
-    width: 0; /* Let flex-grow handle it */
-    padding-right: 0.4rem;
+    text-align: center;
+    width: 200px; /* Fixed width to allow centering */
 }
 
 .unit {
@@ -209,9 +215,8 @@ input[type="text"] {
     font-weight: 600;
     pointer-events: none;
     opacity: 0.5;
-    flex: 1;
+    margin-left: 0.75rem; /* One space away */
     text-align: left;
-    padding-left: 0.4rem;
 }
 
 /* Proportions Visual */
