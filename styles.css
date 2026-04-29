@@ -90,7 +90,7 @@ body {
     border-radius: 24px;
     padding: 3rem;
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.8s ease-out;
 }
@@ -106,9 +106,9 @@ header {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     background: linear-gradient(135deg, #ffffff, var(--accent-1));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -117,7 +117,7 @@ h1 {
 
 p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     line-height: 1.6;
 }
 
@@ -135,11 +135,11 @@ p {
 }
 
 label {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     font-weight: 500;
     color: var(--text-secondary);
     transition: color 0.3s;
-    padding-left: 0.25rem;
+    text-align: center;
 }
 
 .input-group:focus-within label {
@@ -156,41 +156,36 @@ label {
     color: var(--accent-1);
 }
 
-.total-group input[type="number"] {
+.total-group .input-wrapper {
     background: rgba(56, 189, 248, 0.05);
     border-color: rgba(56, 189, 248, 0.3);
-    font-weight: 600;
+}
+
+.total-group input[type="number"] {
+    font-weight: 700;
 }
 
 .input-wrapper {
     position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
-}
-
-input[type="number"] {
-    width: 100%;
     background: var(--input-bg);
     border: 1px solid var(--input-border);
     border-radius: 12px;
-    padding: 1rem 3rem 1rem 1.25rem;
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    outline: none;
+    padding: 0 1.25rem;
     transition: all 0.3s ease;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
-input[type="number"]::placeholder {
-    color: rgba(203, 213, 225, 0.3);
-}
-
-input[type="number"]:focus {
+.input-wrapper:focus-within {
     border-color: var(--accent-1);
     background: rgba(15, 23, 42, 0.8);
     box-shadow: 0 0 0 3px var(--input-focus), inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+input[type="number"]::placeholder {
+    color: rgba(203, 213, 225, 0.3);
 }
 
 /* Hide arrow buttons */
@@ -200,16 +195,28 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 input[type="number"] {
+    background: transparent;
+    border: none;
+    padding: 1.1rem 0;
+    color: var(--text-primary);
+    font-size: 1.35rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    text-align: right;
+    width: auto;
+    min-width: 50px;
+    max-width: 180px;
     -moz-appearance: textfield;
 }
 
 .unit {
-    position: absolute;
-    right: 1.25rem;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.5;
+    margin-left: 0.25rem;
 }
 
 /* Proportions Visual */
@@ -218,18 +225,18 @@ input[type="number"] {
 }
 
 .proportions-header {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     text-align: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     font-weight: 600;
 }
 
 .proportions-visual {
     width: 100%;
-    height: 16px;
+    height: 20px;
     border-radius: 8px;
     display: flex;
     overflow: hidden;
@@ -282,7 +289,7 @@ input[type="number"] {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     font-weight: 500;
 }
@@ -294,8 +301,8 @@ input[type="number"] {
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     display: inline-block;
 }
@@ -312,9 +319,9 @@ input[type="number"] {
 }
 
 .btn-primary, .btn-secondary {
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 1.5rem;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     font-weight: 600;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
