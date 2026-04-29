@@ -12,22 +12,36 @@ const inputTotal = document.getElementById('total');
 const resetBtn = document.getElementById('reset-btn');
 const printBtn = document.getElementById('print-btn');
 
-function formatValue(val) {
-    if (isNaN(val) || !isFinite(val)) return '';
-    // Ensure accurate rounding to max 2 decimal places to avoid floating point inconsistencies, 
-    // but without leaving unnecessary trailing zeros
-    return parseFloat(val.toFixed(2));
+function formatWithCommas(val) {
+    if (val === '' || val === null || val === undefined) return '';
+    const num = parseFloat(val);
+    if (isNaN(num)) return val;
+    
+    // Format with commas, max 2 decimal places
+    return num.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
 }
 
+function parseCommas(str) {
+    if (typeof str !== 'string') return str;
+    return parseFloat(str.replace(/,/g, ''));
+}
+
+
+
 function calculateFrom(sourceId, value) {
-    if (value === '' || isNaN(value)) {
+    const rawValue = parseCommas(value);
+    
+    if (value === '' || isNaN(rawValue)) {
         [inputMg, inputK, inputNa, inputTotal].forEach(input => {
             if (input.id !== sourceId) input.value = '';
         });
         return;
     }
 
-    let numValue = parseFloat(value);
+    let numValue = rawValue;
     
     // Prevent negative numbers
     if (numValue < 0) {
@@ -41,18 +55,10 @@ function calculateFrom(sourceId, value) {
     const ratio = numValue / sourceBase;
 
     // Update other inputs
-    if (sourceId !== 'magnesium') {
-        inputMg.value = formatValue(ratio * BASE_VALUES.magnesium);
-    }
-    if (sourceId !== 'potassium') {
-        inputK.value = formatValue(ratio * BASE_VALUES.potassium);
-    }
-    if (sourceId !== 'sodium') {
-        inputNa.value = formatValue(ratio * BASE_VALUES.sodium);
-    }
-    if (sourceId !== 'total') {
-        inputTotal.value = formatValue(ratio * BASE_VALUES.total);
-    }
+    if (sourceId !== 'magnesium') inputMg.value = formatWithCommas(ratio * BASE_VALUES.magnesium);
+    if (sourceId !== 'potassium') inputK.value = formatWithCommas(ratio * BASE_VALUES.potassium);
+    if (sourceId !== 'sodium') inputNa.value = formatWithCommas(ratio * BASE_VALUES.sodium);
+    if (sourceId !== 'total') inputTotal.value = formatWithCommas(ratio * BASE_VALUES.total);
 }
 
 function handleInput(e) {
@@ -70,17 +76,33 @@ function handlePrint() {
 }
 
 function resetValues() {
-    inputMg.value = BASE_VALUES.magnesium;
-    inputK.value = BASE_VALUES.potassium;
-    inputNa.value = BASE_VALUES.sodium;
-    inputTotal.value = BASE_VALUES.total;
+    inputMg.value = formatWithCommas(BASE_VALUES.magnesium);
+    inputK.value = formatWithCommas(BASE_VALUES.potassium);
+    inputNa.value = formatWithCommas(BASE_VALUES.sodium);
+    inputTotal.value = formatWithCommas(BASE_VALUES.total);
 }
 
 // Attach event listeners
-inputMg.addEventListener('input', handleInput);
-inputK.addEventListener('input', handleInput);
-inputNa.addEventListener('input', handleInput);
-inputTotal.addEventListener('input', handleInput);
+[inputMg, inputK, inputNa, inputTotal].forEach(input => {
+    input.addEventListener('input', (e) => {
+        // Allow only numbers, commas, and one decimal point
+        let val = e.target.value.replace(/[^0-9.,]/g, '');
+        
+        // Prevent multiple decimal points
+        const points = val.split('.');
+        if (points.length > 2) val = points[0] + '.' + points.slice(1).join('');
+        
+        e.target.value = val;
+        handleInput(e);
+    });
+    
+    input.addEventListener('blur', (e) => {
+        const num = parseCommas(e.target.value);
+        if (!isNaN(num)) {
+            e.target.value = formatWithCommas(num);
+        }
+    });
+});
 
 resetBtn.addEventListener('click', () => {
     resetValues();
