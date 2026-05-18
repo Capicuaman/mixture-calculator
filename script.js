@@ -95,3 +95,52 @@ printBtn.addEventListener('click', handlePrint);
 
 // Initialize inputs with the base starting values
 resetValues();
+
+// --- Production Batch / Lote Generator ---
+const productCodeSelect = document.getElementById('product-code');
+const productionDateInput = document.getElementById('production-date');
+const generateBatchBtn = document.getElementById('generate-batch-btn');
+const batchResult = document.getElementById('batch-result');
+const batchNumberSpan = document.getElementById('batch-number');
+const batchExpirySpan = document.getElementById('batch-expiry');
+
+// Set default production date to today
+productionDateInput.value = new Date().toISOString().slice(0, 10);
+
+function getDayOfYear(date) {
+    const start = new Date(date.getFullYear(), 0, 0);
+    const diff = date - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+}
+
+function generateLote(productCode, productionDate) {
+    const dayOfYear = getDayOfYear(productionDate);
+    const yearShort = String(productionDate.getFullYear()).slice(-2);
+    return `${productCode}-${dayOfYear}-${yearShort}`;
+}
+
+function calculateExpiry(productionDate) {
+    const expiry = new Date(productionDate);
+    expiry.setFullYear(expiry.getFullYear() + 3);
+    const month = String(expiry.getMonth() + 1).padStart(2, '0');
+    const year = expiry.getFullYear();
+    return `${month}/${year}`;
+}
+
+function generateBatch() {
+    const productCode = productCodeSelect.value;
+    const dateValue = productionDateInput.value;
+    if (!dateValue) {
+        alert('Please select a production date');
+        return;
+    }
+    const productionDate = new Date(dateValue);
+    const lote = generateLote(productCode, productionDate);
+    const expiry = calculateExpiry(productionDate);
+    batchNumberSpan.textContent = lote;
+    batchExpirySpan.textContent = expiry;
+    batchResult.style.display = 'block';
+}
+
+generateBatchBtn.addEventListener('click', generateBatch);

@@ -78,6 +78,43 @@
             <button id="reset-btn" class="btn-secondary">Reset Calculator</button>
             <button id="print-btn" class="btn-primary">Print Mixture</button>
         </div>
+
+        <div class="batch-section">
+            <div class="batch-header">
+                <span>Production Batch</span>
+            </div>
+            <div class="batch-controls">
+                <div class="input-group">
+                    <label for="product-code">Product Line</label>
+                    <select id="product-code">
+                        <option value="BEL" selected>bilan Electrolitos (BEL)</option>
+                        <option value="BP">bilan Proteína (BP)</option>
+                        <option value="BC">bilan Creatina (BC)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="production-date">Production Date</label>
+                    <input type="date" id="production-date">
+                </div>
+                <button id="generate-batch-btn" class="btn-primary">Generate Lot Number</button>
+            </div>
+            <div id="batch-result" class="batch-result" style="display:none;">
+                <div class="batch-card">
+                    <div class="batch-field">
+                        <span class="batch-label">Lote Number</span>
+                        <span id="batch-number" class="batch-value"></span>
+                    </div>
+                    <div class="batch-field">
+                        <span class="batch-label">Caducidad</span>
+                        <span id="batch-expiry" class="batch-value"></span>
+                    </div>
+                    <div class="batch-field">
+                        <span class="batch-label">Shelf Life</span>
+                        <span class="batch-value">36 months from production</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
